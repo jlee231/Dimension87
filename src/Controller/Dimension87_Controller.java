@@ -2,6 +2,7 @@ package Controller;
 import java.awt.Dimension;
 
 import java.awt.Toolkit;
+import java.io.File;
 
 import View.Dimension87_View;
 import model.*;
@@ -28,6 +29,8 @@ public class Dimension87_Controller extends Application{
 	private boolean isInCharacterSelect = false;
 	private boolean yetToBeInCS = true;
 	
+	
+	
 	private double screenWidth;
 	private double screenHeight;
 	
@@ -40,7 +43,8 @@ public class Dimension87_Controller extends Application{
 	@Override
 	public void start(Stage _stage) throws Exception {
 		stage = _stage;
-		
+		File file = new File("C:\\Users\\School\\Semester2\\D87\\map1.txt");
+		model.loadMap(file);
 		screenWidth = 640;
 		screenHeight = 640;
 				

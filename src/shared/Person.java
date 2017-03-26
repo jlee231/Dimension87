@@ -1,83 +1,78 @@
 package shared;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import model.Model;
-
 /**
  * Created by phani on 3/25/2017.
  */
 public class Person {
     Image image;
-    Model model;
+    //Model model;
     int x;
     int y;
+    int width = 2;
+    int height = 2;
     String name;
-    int radius;
-
-    int health;
-    int def;
-    int atk;
-    int range;
-    public Person(String name,Image image, int x, int y, int radius, int health, int atk, int range, int def ) {
+    public Person(String name,Image image, int x, int y ) {
         this.name = name;
         this.image = image;
-        this.model = model;
+        //this.model = model;
         this.x = x;
         this.y = y;
-        this.radius = radius;
-        this.health = health;
-        this.atk = atk;
-        this.range = range;
-        this.def = def;
-        model.setPlayerSpot(this,y,x);
+        //model.setPlayerSpot(y,x);
     }
 
-
+    /*
     public void moveUp(){
         int x1 = x;
         int y1 = y + 1;
         if(model.inBounds(x1,y1)){
+            x = x1;
+            y = y1;
             Tile t;
-            t = model.getMapVal(x1,y1);
-            t.setPlayer(this);
-            t = model.getMapVal(x,y);
-            t.removePlayer();
+            t = model.getMapVal(y,x);
+            //t.setPlayer(this);
         }
     }
     public void moveDown(){
         int x1 = x;
         int y1 = y - 1;
         if(model.inBounds(x1,y1)){
+            x = x1;
+            y = y1;
             Tile t;
-            t = model.getMapVal(x1,y1);
-            t.setPlayer(this);
-            t = model.getMapVal(x,y);
-            t.removePlayer();
+            t = model.getMapVal(y,x);
+            //t.setPlayer(this);
+            x = x1;
+            y = y1;
         }
     }
     public void moveRight(){
         int x1 = x + 1;
         int y1 = y;
         if(model.inBounds(x1,y1)){
+            x = x1;
+            y = y1;
             Tile t;
-            t = model.getMapVal(x1,y1);
-            t.setPlayer(this);
-            t = model.getMapVal(x,y);
-            t.removePlayer();
+            t = model.getMapVal(y,x);
+            //t.setPlayer(this);
+            x = x1;
+            y = y1;
         }
     }
     public void moveLeft(){
         int x1 = x - 1;
         int y1 = y;
         if(model.inBounds(x1,y1)){
+            x = x1;
+            y = y1;
             Tile t;
-            t = model.getMapVal(x1,y1);
-            t.setPlayer(this);
-            t = model.getMapVal(x,y);
-            t.removePlayer();
+            t = model.getMapVal(y,x);
+            //t.setPlayer(this);
+            x = x1;
+            y = y1;
         }
-
-    }
+    }*/
 
     public String getName() {
         return name;

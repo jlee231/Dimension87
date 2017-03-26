@@ -28,9 +28,9 @@ public class Tile {
     }
 
     public void removePlayer(){
-        setPlayer(null);
+    	setPlayer(null);
     }
-
+    
     public void setPlayer(Person player) {
         this.player = player;
     }
@@ -71,5 +71,6 @@ public class Tile {
         return this.getImage().toString();
     }
 
+   
 
 }

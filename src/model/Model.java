@@ -42,6 +42,14 @@ public class Model implements InterfaceModel {
         this.controller = controller;
     }
 
+    public int getNumRows(){
+    	return map.length;
+    }
+    
+    public int getNumCols(){
+    	return map[0].length;
+    }
+    
     public void loadMap(File f){
         /*load(f);
         try {
@@ -65,7 +73,7 @@ public class Model implements InterfaceModel {
                 String walkable = in.next();
                 imageName = imageName.substring(1);
                 walkable = walkable.substring(0,walkable.length()-1);
-                Image image = new Image("file" +imageName);
+                Image image = new Image("file:DImages/" +imageName);
                 Tile tile;
                 if(walkable.equals("true")){
                     tile = new Tile(true,image);
@@ -93,8 +101,8 @@ public class Model implements InterfaceModel {
     }
 
     @Override
-    public Tile[][] getTileData() {
-        return new Tile[0][];
+    public Tile getTileData(int row, int col) {
+        return map[row][col];
     }
 
     @Override
