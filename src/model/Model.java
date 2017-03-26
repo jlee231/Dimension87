@@ -192,5 +192,5 @@ public class Model implements InterfaceModel {
         this.turnLeft = turnLeft;
     }
 
-    
+
 }
