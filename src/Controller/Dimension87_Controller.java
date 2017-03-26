@@ -22,24 +22,24 @@ public class Dimension87_Controller extends Application{
 
 	private Stage stage;
 	private BorderPane root;
-	
+
 	private Dimension87_View titleScreen;
 	private Dimension87_View characterSelect;
-	
+
 	private boolean isInCharacterSelect = false;
 	private boolean yetToBeInCS = true;
-	
-	
-	
+
+
+
 	private double screenWidth;
 	private double screenHeight;
-	
+
 	private Model model = new Model();
-	
+
 	public static void main(String[] args){
 		launch();
 	}
-	
+
 	@Override
 	public void start(Stage _stage) throws Exception {
 		stage = _stage;
@@ -48,14 +48,14 @@ public class Dimension87_Controller extends Application{
 		model.loadMap(file);
 		screenWidth = 640;
 		screenHeight = 640;
-				
+
 		stage.setTitle("Dimension87");
 		stage.setWidth(screenWidth);
 		stage.setHeight(screenHeight);
 		stage.setResizable(false);
-		
+
 		root = new BorderPane();
-		
+
 		createTitle();
 
 		Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
@@ -64,13 +64,13 @@ public class Dimension87_Controller extends Application{
 		scene.setOnMouseClicked(new MouseHandler());
 		stage.show();
 	}
-	
+
 	public void createTitle(){
 		titleScreen = new Dimension87_View();
 		titleScreen.createTitleScreen(screenWidth, screenHeight);
 		root.setCenter(titleScreen);
 	}
-	
+
 	public void createCharacterSelect(){
 		characterSelect = new Dimension87_View();
 		characterSelect.createCharacterSelectScreen(screenWidth, screenHeight, model);
@@ -84,11 +84,11 @@ public class Dimension87_Controller extends Application{
 			if(event.getButton() == MouseButton.PRIMARY){
 				System.out.println(event.getX() + " " + event.getY());
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	public class KeyHandler implements EventHandler<KeyEvent>{
 
 		@Override
@@ -101,7 +101,6 @@ public class Dimension87_Controller extends Application{
 				yetToBeInCS = false;
 			}
 		}
-		
+
 	}
-	
 }

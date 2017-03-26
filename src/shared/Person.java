@@ -2,11 +2,11 @@ package shared;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-
+import model.Battle;
 import model.Model;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-
+import model.Battle.*;
 
 /**
  * Created by phani on 3/25/2017.
@@ -24,8 +24,9 @@ public class Person {
     int range;
     boolean teamRight;
     boolean moved;
+    Boolean dead;
 
-    public Person(Model model,String name,Image image, int x, int y, int radius, int health, int atk, int range, int def, boolean teamRight, boolean moved ) {
+    public Person(Model model,String name,Image image, int x, int y, int radius, int health, int atk, int range, int def, boolean teamRight, boolean moved, boolean dead ) {
 
         this.name = name;
         this.image = image;
@@ -35,6 +36,7 @@ public class Person {
         model.setPlayerSpot(this,y,x);
         this.teamRight = teamRight;
         this.moved = false;
+        this.dead = false;
     }
 
     public ArrayList<Point2D> LegalMoves(){
@@ -59,6 +61,7 @@ public class Person {
     }
 
     public void move(Point2D spot){
+        moved = true;
         ArrayList<Point2D> legalMoves = new ArrayList<Point2D>();
         legalMoves = this.LegalMoves();
         if (legalMoves.contains(spot)){
@@ -66,10 +69,27 @@ public class Person {
             t = model.getMapVal((int) spot.getX(),(int)spot.getY());
             t.setPlayer(this);
             model.setMapVal(t, (int) spot.getX(), (int) spot.getY());
+            t = model.getMapVal(x,y);
+            t.setPlayer(null);
+            model.setMapVal(t,x,y);
+            this.setX((int) spot.getX());
+            this.setY((int) spot.getY());
         }
     }
 
+    public void fight(Point2D point){
+        ArrayList<Point2D> enemies = model.nearbyEnemies(range,x,y);
+        if (enemies.contains(point)){
+            Tile t = model.getMapVal((int)point.getX(),(int)point.getY());
+            Battle battle = new Battle(this,t.getPlayer());
+        }
+    }
 
+    public void die(){
+        Tile t = model.getMapVal(x,y);
+        t.setPlayer(null);
+        model.setMapVal(t,x,y);
+    }
 
     /*public void moveUp(int num){
 
@@ -203,5 +223,21 @@ public class Person {
 
     public void setRange(int range) {
         this.range = range;
+    }
+
+    public void setMoved(boolean moved) {
+        this.moved = moved;
+    }
+
+    public boolean isMoved() {
+        return moved;
+    }
+
+    public Boolean getDead() {
+        return dead;
+    }
+
+    public void setDead(Boolean dead) {
+        this.dead = dead;
     }
 }
