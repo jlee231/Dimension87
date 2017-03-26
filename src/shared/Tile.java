@@ -27,6 +27,9 @@ public class Tile {
         return player;
     }
 
+    public void removePlayer(){
+        setPlayer(null);
+    }
 
     public void setPlayer(Person player) {
         this.player = player;

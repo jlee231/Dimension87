@@ -15,9 +15,7 @@ import View.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import Controller.*;
-
 import java.util.ArrayList;
-import
 import java.util.Random;
 import java.util.Scanner;
 import shared.Person;
@@ -110,7 +108,19 @@ public class Model implements InterfaceModel {
     }
 
     public void setPlayerSpot(Person person, int newX, int newY){
+        Tile tile = getMapVal(newX,newY);
+        tile.setPlayer(person);
+        map[newX][newY] =tile;
+    }
+    public void removePlayerSpot(int x, int y){
+        Tile tile = getMapVal(x,y);
+        tile.removePlayer();
+        map[x][y] =tile;
 
+    }
+
+    public Tile getMapVal(int x, int y){
+        return map[x][y];
     }
 
     public Boolean inBounds(int x, int y){
