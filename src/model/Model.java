@@ -23,12 +23,11 @@ public class Model implements InterfaceModel {
     Dimension87_Controller controller;
     File f1;
 
-    public Model(Dimension87_Controller controller) {
+    public Model() {
 
         //this.controller = controller;
         //load(f);
         spriteData = new ArrayList<Image>();
-        this.controller = controller;
     }
 
     public int getNumRows(){
@@ -38,6 +37,7 @@ public class Model implements InterfaceModel {
     public int getNumCols(){
     	return map[0].length;
     }
+    
     
     public void loadMap(File f){
         /*load(f);
@@ -101,6 +101,14 @@ public class Model implements InterfaceModel {
     @Override
     public Person[] getTeam2() {
         return team2;
+    }
+    
+    public void setTeam1(Person[] team) {
+    	this.team1 = team;
+    }
+
+    public void setTeam2(Person[] team) {
+        this.team2 = team;
     }
 
     public void setPlayerSpot(Person person, int newX, int newY){

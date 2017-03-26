@@ -1,4 +1,7 @@
 package View;
+import java.util.ArrayList;
+
+import Controller.Dimension87_Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -22,6 +25,9 @@ import javafx.scene.paint.Color;
 public class Dimension87_View extends Group implements Dimension87_ViewInterface<Image>{
 
 	private ImageView[][] images;
+	
+	private ArrayList<Hero_View> leftTeam = new ArrayList<Hero_View>();
+	private ArrayList<Hero_View> rightTeam = new ArrayList<Hero_View>();
 	
 	private Image titleScreenImage = new Image("file:DImages/screenTitle.png");
 	private Image characterSelectImage = new Image("file:DImages/screenSelect.png");
@@ -132,7 +138,7 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 		setBackground(titleScreenImage, width, height);
 	}
 	
-	public void createCharacterSelectScreen(double width, double height, Model model){
+	public void createCharacterSelectScreen(double width, double height, Dimension87_Controller controller){
 		setBackground(characterSelectImage, width, height);
 		
 		double xPosition = 0;
@@ -227,7 +233,7 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 
 			@Override
 			public void handle(MouseEvent event) {
-				createBattleGrounds(width, height, model);
+				controller.initialize();
 			}
 			
 		});
@@ -269,6 +275,7 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 				case 3: sprite.setImage(nurseLeft);	break;
 			}
 			Hero_View hero = new Hero_View();
+			leftTeam.add(hero);
 			hero.makeSquare(xPosition, pixelSize/2 + yIncrement*i, pixelSize);
 			hero.setImageNow(sprite.getImage());
 			hero.setColor(Color.WHITE);
@@ -372,6 +379,7 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 				case 3: sprite.setImage(nurseRight); break;
 			}
 			Hero_View hero = new Hero_View();
+			rightTeam.add(hero);
 			hero.makeSquare(xPosition, pixelSize/2 + yIncrement*i, pixelSize);
 			hero.setImageNow(sprite.getImage());
 			hero.setColor(Color.WHITE);
@@ -464,5 +472,32 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 		
 	}
 	
+	public Hero_View[] getLeftTeam(){
+		for(int i = 0; i < leftTeam.size(); i++){
+			if(!leftTeam.get(i).getSelected()){
+				leftTeam.remove(i);
+				i--;
+			}
+		};
+		Hero_View[] left = new Hero_View[leftTeam.size()];
+		for(int i = 0; i < left.length; i++){
+			left[i] = leftTeam.get(i);
+		}
+		return left;
+	}
+	
+	public Hero_View[] getRightTeam(){
+		for(int i = 0; i < rightTeam.size(); i++){
+			if(!rightTeam.get(i).getSelected()){
+				rightTeam.remove(i);
+				i--;
+			}
+		}
+		Hero_View[] right = new Hero_View[rightTeam.size()];
+		for(int i = 0; i < right.length; i++){
+			right[i] = rightTeam.get(i);
+		}
+		return right;
+	}
 	
 }

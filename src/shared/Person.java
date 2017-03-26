@@ -25,6 +25,18 @@ public class Person {
     int atk;
     int range;
 
+    public Person(){
+    	this.name = null;
+    	this.image = null;
+    	this.x = 0;
+    	this.y = 0;
+    	this.radius = 0;
+    	this.health = 0;
+    	this.def = 0;
+    	this.atk = 0;
+    	this.range = 0;
+    }
+    
     public Person(Model model,String name,Image image, int x, int y, int radius, int health, int atk, int range, int def ) {
         this.name = name;
         this.image = image;
