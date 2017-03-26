@@ -11,17 +11,24 @@ public class Person {
     Model model;
     int x;
     int y;
-    int width = 2;
-    int height = 2;
     String name;
     int radius;
-    public Person(String name,Image image, int x, int y, int radius ) {
+
+    int health;
+    int def;
+    int atk;
+    int range;
+    public Person(String name,Image image, int x, int y, int radius, int health, int atk, int range, int def ) {
         this.name = name;
         this.image = image;
         this.model = model;
         this.x = x;
         this.y = y;
         this.radius = radius;
+        this.health = health;
+        this.atk = atk;
+        this.range = range;
+        this.def = def;
         model.setPlayerSpot(this,y,x);
     }
 
