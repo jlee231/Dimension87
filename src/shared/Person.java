@@ -25,6 +25,8 @@ public class Person {
     int atk;
     int range;
 
+    boolean turnOn = true;
+    
     public Person(){
     	this.name = null;
     	this.x = 0;
@@ -46,6 +48,14 @@ public class Person {
         //model.setPlayerSpot(y,x);
     }
 
+    public boolean getTurn(){
+    	return turnOn;
+    }
+ 
+    public void setTurn(boolean b){
+    	turnOn = b;
+    }
+    
     public ArrayList<Point2D> LegalMoves(){
         ArrayList<Integer> xPos = new ArrayList<Integer>();
         ArrayList<Integer> yPos = new ArrayList<Integer>();
@@ -231,5 +241,11 @@ public class Person {
 
     public void setRange(int range) {
         this.range = range;
+    }
+    
+    public void die(){
+        Tile t = model.getMapVal(x,y);
+        t.setPlayer(null);
+        model.setMapVal(t,x,y);
     }
 }

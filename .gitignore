@@ -7,3 +7,7 @@
 *.iml
 out
 gen
+.gitignore
+map1.txt
+map3.txt
+DImages

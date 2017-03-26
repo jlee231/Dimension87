@@ -94,6 +94,34 @@ public class Model implements InterfaceModel {
         return map[row][col];
     }
     
+    public boolean isPerson(int row, int col){
+    	for(int i = 0; i < team1.length; i++){
+    		if(team1[i].getX() == col && team1[i].getY() == row){
+    			return true;
+    		}
+    	}
+    	for(int i = 0; i < team2.length; i++){
+    		if(team2[i].getX() == col && team2[i].getY() == row  ){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    public Person getPerson(int row, int col){
+    	for(int i = 0; i < team1.length; i++){
+    		if(team1[i].getX() == col && team1[i].getY() == row){
+    			return team1[i];
+    		}
+    	}
+    	for(int i = 0; i < team2.length; i++){
+    		if(team2[i].getX() == row && team2[i].getY() == col){
+    			return team2[i];
+    		}
+    	}
+    	return null;
+    }
+    
     @Override
     public Person[] getTeam1() {
         return team1;
@@ -161,4 +189,25 @@ public class Model implements InterfaceModel {
         return enemies;
     }
 
+    public boolean turnOver(){
+        if (turnLeft){
+            for (int i = 0; i < team1.length; i++) {
+                if (!team1[i].isMoved()){
+                    return false;
+                }
+            }
+        }
+        if (!turnLeft){
+            for (int i = 0; i < team1.length; i++) {
+                if (!team2[i].isMoved()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void setNextTurn(boolean turnLeft) {
+        this.turnLeft = turnLeft;
+    }
 }

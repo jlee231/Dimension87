@@ -2,7 +2,9 @@ package Controller;
 import java.awt.Dimension;
 
 import java.awt.Toolkit;
+import java.awt.geom.Point2D;
 import java.io.File;
+import java.util.ArrayList;
 
 import View.Dimension87_View;
 import View.Hero_View;
@@ -13,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -123,7 +126,6 @@ public class Dimension87_Controller extends Application{
 		Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
 		stage.setScene(scene);
 		scene.setOnKeyPressed(new KeyHandler());
-		scene.setOnMouseClicked(new MouseHandler());
 		stage.show();
 	}
 	
@@ -231,6 +233,7 @@ public class Dimension87_Controller extends Application{
 		model.setTeam2(rightTeam);
 		
 		battleGround = new Dimension87_View();
+		battleGround.setOnMouseClicked(new MouseHandler());
 		battleGround.createBattleGrounds(screenWidth, screenHeight, model);
 		root.setCenter(battleGround);
 	}
@@ -240,11 +243,27 @@ public class Dimension87_Controller extends Application{
 
 		@Override
 		public void handle(MouseEvent event) {
-			int row = (int) (event.getY() / pixelSize);
-			int col = (int) (event.getX() / pixelSize);
+			int row = (int) ((event.getY()+pixelSize/2) / pixelSize) - 1;
+			int col = (int) ((event.getX()+pixelSize/2) / pixelSize) - 1;
 			if(event.getButton() == MouseButton.PRIMARY){
-				Tile tile = model.getTileData(row, col);
 				
+				Person[] team1 = model.getTeam1();
+				Person[] team2 = model.getTeam2();
+				
+				System.out.println(team1[0].toString());
+				System.out.println(team1.toString());
+				for(int i = 0; i < team1.length; i++){
+					team1[i].setTurn(true);
+				}
+				for(int i = 0; i < team2.length; i++){
+					team2[i].setTurn(false);
+				}
+				if(model.isPerson(row, col)){
+					Person inControl = model.getPerson(row, col);
+					ArrayList<Point2D> legalMoves = inControl.LegalMoves();
+					
+				
+				}
 			}
 			
 		}

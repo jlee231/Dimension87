@@ -246,7 +246,8 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 
 			@Override
 			public void handle(MouseEvent event) {
-				controller.initialize();
+					controller.initialize();
+				
 			}
 			
 		});
