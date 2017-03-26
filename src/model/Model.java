@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import shared.Person;
 import shared.Tile;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import Controller.*;
 
@@ -92,7 +93,7 @@ public class Model implements InterfaceModel {
     public Tile getTileData(int row, int col) {
         return map[row][col];
     }
-
+    
     @Override
     public Person[] getTeam1() {
         return team1;
@@ -139,5 +140,25 @@ public class Model implements InterfaceModel {
         return false;
     }
 
+    public ArrayList<Point2D> nearbyEnemies(int range, int x, int y){
+        ArrayList<Integer> xPos = new ArrayList<Integer>();
+        ArrayList<Integer> yPos = new ArrayList<Integer>();
+        ArrayList<Point2D> enemies = new ArrayList<Point2D>();
+        for (int i = 0; i <= range ; i++) {
+            xPos.add(x+i);
+            xPos.add(x-i);
+            yPos.add(y+i);
+            yPos.add(y-i);
+        }
+        for (int i = 0; i < xPos.size() ; i++) {
+            for (int j = 0; j < yPos.size() ; j++) {
+                if(map[xPos.get(i)][yPos.get(j)].getPlayer() != null){
+                    Point2D point = new Point2D.Double(xPos.get(i),yPos.get(j));
+                    enemies.add(point);
+                }
+            }
+        }
+        return enemies;
+    }
 
 }
