@@ -36,13 +36,42 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 	private Image mageRight = new Image("file:DImages/playerMageRight.png");
 	private Image nurseRight = new Image("file:DImages/playerNurseRight.png");
 	
+	private Image knightGrassLeft = new Image("file:DImages/playerKnightGrassLeft.png");
+	private Image archerGrassLeft = new Image("file:DImages/playerArcherGrassLeft.png");
+	private Image mageGrassLeft = new Image("file:DImages/playerMageGrassLeft.png");
+	private Image nurseGrassLeft = new Image("file:DImages/playerNurseGrassLeft.png");
+	
+	private Image knightGrassRight = new Image("file:DImages/playerKnightGrassRight.png");
+	private Image archerGrassRight = new Image("file:DImages/playerArcherGrassRight.png");
+	private Image mageGrassRight = new Image("file:DImages/playerMageGrassRight.png");
+	private Image nurseGrassRight = new Image("file:DImages/playerNurseGrassRight.png");
+	
+	private Image knightDirtLeft = new Image("file:DImages/playerKnightDirtLeft.png");
+	private Image archerDirtLeft = new Image("file:DImages/playerArcherDirtLeft.png");
+	private Image mageDirtLeft = new Image("file:DImages/playerMageDirtLeft.png");
+	private Image nurseDirtLeft = new Image("file:DImages/playerNurseDirtLeft.png");
+	
+	private Image knightDirtRight = new Image("file:DImages/playerKnightDirtRight.png");
+	private Image archerDirtRight = new Image("file:DImages/playerArcherDirtRight.png");
+	private Image mageDirtRight = new Image("file:DImages/playerMageDirtRight.png");
+	private Image nurseDirtRight = new Image("file:DImages/playerNurseDirtRight.png");
+	
 	private Image floorDirt = new Image("file:DImages/floorDirt.png");
 	private Image floorGrass = new Image("file:DImages/floorGrass.png");
 	
-	private Image wallCornerBottomLeft = new Image("file:DImages/WallCornerBottomLeft.png");
-	private Image wallCornerBottomRight = new Image("file:DImages/WallCornerBottomRight.png");
-	private Image wallCornerTopLeft = new Image("file:DImages/WallCornerTopLeft.png");
-	private Image wallCornerTopRight = new Image("file:DImages/WallCornerTopRight.png");
+	private Image wallDirtBottomLeft = new Image("file:DImages/WallDirtBottomLeft.png");
+	private Image wallDirtBottomRight = new Image("file:DImages/WallDirtBottomRight.png");
+	private Image wallDirtTopLeft = new Image("file:DImages/WallDirtTopLeft.png");
+	private Image wallDirtTopRight = new Image("file:DImages/WallDirtTopRight.png");
+	private Image wallDirtHorizontal = new Image("file:DImages/WallDirtHorizontal.png");
+	private Image wallDirtVertical = new Image("file:DImages/WallDirtVertical.png");
+	
+	private Image wallGrassBottomLeft = new Image("file:DImages/WallGrassBottomLeft.png");
+	private Image wallGrassBottomRight = new Image("file:DImages/WallGrassBottomRight.png");
+	private Image wallGrassTopLeft = new Image("file:DImages/WallGrassTopLeft.png");
+	private Image wallGrassTopRight = new Image("file:DImages/WallGrassTopRight.png");
+	private Image wallGrassHorizontal = new Image("file:DImages/WallGrassHorizontal.png");
+	private Image wallGrassVertical = new Image("file:DImages/WallGrassVertical.png");
 	
 	private int numCharacters = 4;
 	
@@ -218,7 +247,7 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 		for(int i = pixelSize / 2; i < width; i+=pixelSize){
 			x=0;
 			for(int j = pixelSize / 2; j < height; j+=pixelSize){
-				ImageView image = new ImageView(floorDirt);
+				ImageView image = new ImageView();
 				image.setImage(model.getTileData(x, y).getImage());
 				image.setX(i);
 				image.setY(j);
