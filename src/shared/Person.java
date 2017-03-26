@@ -1,25 +1,28 @@
 package shared;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import model.Model;
+
 /**
  * Created by phani on 3/25/2017.
  */
 public class Person {
     Image image;
-    //Model model;
+    Model model;
     int x;
     int y;
     int width = 2;
     int height = 2;
     String name;
-    public Person(String name,Image image, int x, int y ) {
+    int radius;
+    public Person(String name,Image image, int x, int y, int radius ) {
         this.name = name;
         this.image = image;
-        //this.model = model;
+        this.model = model;
         this.x = x;
         this.y = y;
-        //model.setPlayerSpot(y,x);
+        this.radius = radius;
+        model.setPlayerSpot(this,y,x);
     }
 
     /*
