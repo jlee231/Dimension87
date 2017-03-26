@@ -22,28 +22,61 @@ import javafx.scene.paint.Color;
 public class Dimension87_View extends Group implements Dimension87_ViewInterface<Image>{
 
 	private ImageView[][] images;
-	
+
+	private Hero_View[] leftTeam = new Hero_View[4];
+	private Hero_View[] rightTeam = new Hero_View[4];
+
 	private Image titleScreenImage = new Image("file:DImages/screenTitle.png");
 	private Image characterSelectImage = new Image("file:DImages/screenSelect.png");
-	
+
 	private Image knightLeft = new Image("file:DImages/playerKnightLeft.png");
 	private Image archerLeft = new Image("file:DImages/playerArcherLeft.png");
 	private Image mageLeft = new Image("file:DImages/playerMageLeft.png");
 	private Image nurseLeft = new Image("file:DImages/playerNurseLeft.png");
-	
+
 	private Image knightRight = new Image("file:DImages/playerKnightRight.png");
 	private Image archerRight = new Image("file:DImages/playerArcherRight.png");
 	private Image mageRight = new Image("file:DImages/playerMageRight.png");
 	private Image nurseRight = new Image("file:DImages/playerNurseRight.png");
-	
+
+	private Image knightGrassLeft = new Image("file:DImages/playerKnightGrassLeft.png");
+	private Image archerGrassLeft = new Image("file:DImages/playerArcherGrassLeft.png");
+	private Image mageGrassLeft = new Image("file:DImages/playerMageGrassLeft.png");
+	private Image nurseGrassLeft = new Image("file:DImages/playerNurseGrassLeft.png");
+
+	private Image knightGrassRight = new Image("file:DImages/playerKnightGrassRight.png");
+	private Image archerGrassRight = new Image("file:DImages/playerArcherGrassRight.png");
+	private Image mageGrassRight = new Image("file:DImages/playerMageGrassRight.png");
+	private Image nurseGrassRight = new Image("file:DImages/playerNurseGrassRight.png");
+
+	private Image knightDirtLeft = new Image("file:DImages/playerKnightDirtLeft.png");
+	private Image archerDirtLeft = new Image("file:DImages/playerArcherDirtLeft.png");
+	private Image mageDirtLeft = new Image("file:DImages/playerMageDirtLeft.png");
+	private Image nurseDirtLeft = new Image("file:DImages/playerNurseDirtLeft.png");
+
+	private Image knightDirtRight = new Image("file:DImages/playerKnightDirtRight.png");
+	private Image archerDirtRight = new Image("file:DImages/playerArcherDirtRight.png");
+	private Image mageDirtRight = new Image("file:DImages/playerMageDirtRight.png");
+	private Image nurseDirtRight = new Image("file:DImages/playerNurseDirtRight.png");
+
 	private Image floorDirt = new Image("file:DImages/floorDirt.png");
 	private Image floorGrass = new Image("file:DImages/floorGrass.png");
-	
-	private Image wallCornerBottomLeft = new Image("file:DImages/WallCornerBottomLeft.png");
-	private Image wallCornerBottomRight = new Image("file:DImages/WallCornerBottomRight.png");
-	private Image wallCornerTopLeft = new Image("file:DImages/WallCornerTopLeft.png");
-	private Image wallCornerTopRight = new Image("file:DImages/WallCornerTopRight.png");
-	
+
+	private Image wallDirtBottomLeft = new Image("file:DImages/WallDirtBottomLeft.png");
+	private Image wallDirtBottomRight = new Image("file:DImages/WallDirtBottomRight.png");
+	private Image wallDirtTopLeft = new Image("file:DImages/WallDirtTopLeft.png");
+	private Image wallDirtTopRight = new Image("file:DImages/WallDirtTopRight.png");
+	private Image wallDirtHorizontal = new Image("file:DImages/WallDirtHorizontal.png");
+	private Image wallDirtVertical = new Image("file:DImages/WallDirtVertical.png");
+
+	private Image wallGrassBottomLeft = new Image("file:DImages/WallGrassBottomLeft.png");
+	private Image wallGrassBottomRight = new Image("file:DImages/WallGrassBottomRight.png");
+	private Image wallGrassTopLeft = new Image("file:DImages/WallGrassTopLeft.png");
+	private Image wallGrassTopRight = new Image("file:DImages/WallGrassTopRight.png");
+	private Image wallGrassHorizontal = new Image("file:DImages/WallGrassHorizontal.png");
+	private Image wallGrassVertical = new Image("file:DImages/WallGrassVertical.png");
+
+
 	private int numCharacters = 4;
 	
 	private Model model;
@@ -240,6 +273,7 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 				case 3: sprite.setImage(nurseLeft);	break;
 			}
 			Hero_View hero = new Hero_View();
+			leftTeam[i] = hero;
 			hero.makeSquare(xPosition, pixelSize/2 + yIncrement*i, pixelSize);
 			hero.setImageNow(sprite.getImage());
 			hero.setColor(Color.WHITE);
@@ -343,6 +377,7 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 				case 3: sprite.setImage(nurseRight); break;
 			}
 			Hero_View hero = new Hero_View();
+			rightTeam[i] = hero;
 			hero.makeSquare(xPosition, pixelSize/2 + yIncrement*i, pixelSize);
 			hero.setImageNow(sprite.getImage());
 			hero.setColor(Color.WHITE);
@@ -434,6 +469,12 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 		}
 		
 	}
-	
-	
+
+	public Hero_View[] getLeftTeam() {
+		return leftTeam;
+	}
+
+	public Hero_View[] getRightTeam() {
+		return rightTeam;
+	}
 }

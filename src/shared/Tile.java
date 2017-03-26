@@ -23,6 +23,7 @@ public class Tile {
     }
 
 
+
     public Person getPlayer() {
         return player;
     }
@@ -56,6 +57,9 @@ public class Tile {
      * @return
      */
     public boolean isWalkable() {
+        if (this.getPlayer() != null){
+            return false;
+        }
         return walkable;
     }
 

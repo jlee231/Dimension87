@@ -1,25 +1,15 @@
 package model;
 
 
-import java.awt.image.BufferedImage;
+import java.awt.geom.Point2D;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import shared.Person;
-import shared.Player;
 import shared.Tile;
-import View.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import Controller.*;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-import shared.Person;
-import shared.Tile;
+//import Controller.*;
 
 /**
  * Created by phani on 3/25/2017.
@@ -31,21 +21,33 @@ public class Model implements InterfaceModel {
     Person team1[];
     Person team2[];
     ArrayList<Image> spriteData;
-    Dimension87_Controller controller;
+    //Dimension87_Controller controller;
     File f1;
+    boolean turnLeft = true;
 
-    public Model(Dimension87_Controller controller) {
+    public Model() {
 
         //this.controller = controller;
         //load(f);
         spriteData = new ArrayList<Image>();
-        this.controller = controller;
+        //this.controller = controller;
+        this.team1 = null;
+        this.team2 = null;
+    }
+
+    public void setTeam1(Person[] team) {
+        this.team1 = team1;
+    }
+
+    public void setTeam2(Person[] team) {
+        this.team2 = team2;
     }
 
     public int getNumRows(){
     	return map.length;
     }
-    
+
+
     public int getNumCols(){
     	return map[0].length;
     }
@@ -100,7 +102,7 @@ public class Model implements InterfaceModel {
         map[y][x] = tile;
     }
 
-    @Override
+
     public Tile getTileData(int row, int col) {
         return map[row][col];
     }
@@ -115,17 +117,19 @@ public class Model implements InterfaceModel {
         return team2;
     }
 
-    public void setPlayerSpot(Person person, int newX, int newY){
+    public void setPlayerSpot(Person person, int newX, int newY){  //note: use person.move to move character
         Tile tile = getMapVal(newX,newY);
         tile.setPlayer(person);
         map[newX][newY] =tile;
     }
-    public void removePlayerSpot(int x, int y){
+    public void removePlayerSpot(int x, int y){ // note: don't use function;
         Tile tile = getMapVal(x,y);
         tile.removePlayer();
         map[x][y] =tile;
 
     }
+
+
 
     public Tile getMapVal(int x, int y){
         return map[x][y];
@@ -141,6 +145,27 @@ public class Model implements InterfaceModel {
             }
         }
         return false;
+    }
+
+    public ArrayList<Point2D> nearbyEnemies(int range, int x, int y){
+        ArrayList<Integer> xPos = new ArrayList<Integer>();
+        ArrayList<Integer> yPos = new ArrayList<Integer>();
+        ArrayList<Point2D> enemies = new ArrayList<Point2D>();
+        for (int i = 0; i <= range ; i++) {
+            xPos.add(x+i);
+            xPos.add(x-i);
+            yPos.add(y+i);
+            yPos.add(y-i);
+        }
+        for (int i = 0; i < xPos.size() ; i++) {
+            for (int j = 0; j < yPos.size() ; j++) {
+                if(map[xPos.get(i)][yPos.get(j)].getPlayer() != null){
+                    Point2D point = new Point2D.Double(xPos.get(i),yPos.get(j));
+                    enemies.add(point);
+                }
+            }
+        }
+        return enemies;
     }
 
 
