@@ -34,7 +34,7 @@ public class Dimension87_Controller extends Application{
 	private double screenWidth;
 	private double screenHeight;
 	
-	private Model model = new Model();
+	private Model model = new Model(this);
 	
 	public static void main(String[] args){
 		launch();
@@ -43,8 +43,7 @@ public class Dimension87_Controller extends Application{
 	@Override
 	public void start(Stage _stage) throws Exception {
 		stage = _stage;
-		//File file = new File("C:\\Users\\School\\Semester2\\D87\\map1.txt");
-		File file = new File("C:\\Users\\phani\\Documents\\GitHub\\dim87\\map1.txt");
+		File file = new File("C:\\Users\\School\\Semester2\\D87\\map1.txt");
 		model.loadMap(file);
 		screenWidth = 640;
 		screenHeight = 640;
