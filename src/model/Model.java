@@ -1,15 +1,15 @@
 package model;
 
 
-import java.awt.geom.Point2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import shared.Person;
 import shared.Tile;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-//import Controller.*;
+import Controller.*;
 
 /**
  * Created by phani on 3/25/2017.
@@ -21,36 +21,24 @@ public class Model implements InterfaceModel {
     Person team1[];
     Person team2[];
     ArrayList<Image> spriteData;
-    //Dimension87_Controller controller;
+    Dimension87_Controller controller;
     File f1;
-    boolean turnLeft = true;
 
     public Model() {
 
         //this.controller = controller;
         //load(f);
         spriteData = new ArrayList<Image>();
-        //this.controller = controller;
-        this.team1 = null;
-        this.team2 = null;
-    }
-
-    public void setTeam1(Person[] team) {
-        this.team1 = team1;
-    }
-
-    public void setTeam2(Person[] team) {
-        this.team2 = team2;
     }
 
     public int getNumRows(){
     	return map.length;
     }
-
-
+    
     public int getNumCols(){
     	return map[0].length;
     }
+    
     
     public void loadMap(File f){
         /*load(f);
@@ -102,11 +90,38 @@ public class Model implements InterfaceModel {
         map[y][x] = tile;
     }
 
-
     public Tile getTileData(int row, int col) {
         return map[row][col];
     }
-
+    
+    public boolean isPerson(int row, int col){
+    	for(int i = 0; i < team1.length; i++){
+    		if(team1[i].getX() == col && team1[i].getY() == row){
+    			return true;
+    		}
+    	}
+    	for(int i = 0; i < team2.length; i++){
+    		if(team2[i].getX() == col && team2[i].getY() == row  ){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    public Person getPerson(int row, int col){
+    	for(int i = 0; i < team1.length; i++){
+    		if(team1[i].getX() == col && team1[i].getY() == row){
+    			return team1[i];
+    		}
+    	}
+    	for(int i = 0; i < team2.length; i++){
+    		if(team2[i].getX() == row && team2[i].getY() == col){
+    			return team2[i];
+    		}
+    	}
+    	return null;
+    }
+    
     @Override
     public Person[] getTeam1() {
         return team1;
@@ -116,20 +131,26 @@ public class Model implements InterfaceModel {
     public Person[] getTeam2() {
         return team2;
     }
+    
+    public void setTeam1(Person[] team) {
+    	this.team1 = team;
+    }
 
-    public void setPlayerSpot(Person person, int newX, int newY){  //note: use person.move to move character
+    public void setTeam2(Person[] team) {
+        this.team2 = team;
+    }
+
+    public void setPlayerSpot(Person person, int newX, int newY){
         Tile tile = getMapVal(newX,newY);
         tile.setPlayer(person);
         map[newX][newY] =tile;
     }
-    public void removePlayerSpot(int x, int y){ // note: don't use function;
+    public void removePlayerSpot(int x, int y){
         Tile tile = getMapVal(x,y);
         tile.removePlayer();
         map[x][y] =tile;
 
     }
-
-
 
     public Tile getMapVal(int x, int y){
         return map[x][y];
@@ -168,5 +189,25 @@ public class Model implements InterfaceModel {
         return enemies;
     }
 
+    public boolean turnOver(){
+        if (turnLeft){
+            for (int i = 0; i < team1.length; i++) {
+                if (!team1[i].isMoved()){
+                    return false;
+                }
+            }
+        }
+        if (!turnLeft){
+            for (int i = 0; i < team1.length; i++) {
+                if (!team2[i].isMoved()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
+    public void setNextTurn(boolean turnLeft) {
+        this.turnLeft = turnLeft;
+    }
 }

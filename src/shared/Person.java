@@ -1,42 +1,61 @@
 package shared;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 
+import javafx.scene.image.Image;
 import model.Model;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-
 
 /**
  * Created by phani on 3/25/2017.
  */
 public class Person {
-    Image image;
+    ImageView image = new ImageView();
     Model model;
     int x;
     int y;
+    int width = 2;
+    int height = 2;
     String name;
+
     int radius;
     int health;
     int def;
     int atk;
     int range;
-    boolean teamRight;
-    boolean moved;
 
-    public Person(Model model,String name,Image image, int x, int y, int radius, int health, int atk, int range, int def, boolean teamRight, boolean moved ) {
-
-        this.name = name;
-        this.image = image;
-        this.model = model;
+    boolean turnOn = true;
+    
+    public Person(){
+    	this.name = null;
+    	this.x = 0;
+    	this.y = 0;
+    	this.radius = 0;
+    	this.health = 0;
+    	this.def = 0;
+    	this.atk = 0;
+    	this.range = 0;
+    }
+    
+    public Person(Model _model, String name,Image img, int x, int y, int radius, int health, int atk, int range, int def ) {
+        this.model = _model;
+    	this.name = name;
+        image.setImage(img);
+        //this.model = model;
         this.x = x;
         this.y = y;
-        model.setPlayerSpot(this,y,x);
-        this.teamRight = teamRight;
-        this.moved = false;
+        //model.setPlayerSpot(y,x);
     }
 
+    public boolean getTurn(){
+    	return turnOn;
+    }
+ 
+    public void setTurn(boolean b){
+    	turnOn = b;
+    }
+    
     public ArrayList<Point2D> LegalMoves(){
         ArrayList<Integer> xPos = new ArrayList<Integer>();
         ArrayList<Integer> yPos = new ArrayList<Integer>();
@@ -68,13 +87,32 @@ public class Person {
             model.setMapVal(t, (int) spot.getX(), (int) spot.getY());
         }
     }
-
-
-
-    /*public void moveUp(int num){
-
+    
+    /*
     public void moveUp(){
->>>>>>> upstream/master
+=======
+    public void LegalMoves(){
+        ArrayList<Integer> xPos = new ArrayList<Integer>();
+        ArrayList<Integer> yPos = new ArrayList<Integer>();
+        ArrayList<Point2D> legalMoves = new ArrayList<Point2D>();
+        for (int i = 0; i <= radius ; i++) {
+            xPos.add(x+i);
+            xPos.add(x-i);
+            yPos.add(y+i);
+            yPos.add(y-i);
+        }
+        for (int i = 0; i < xPos.size() ; i++) {
+            for (int j = 0; j < xPos.size() ; j++) {
+                if(model.inBounds(xPos.get(i),yPos.get(j))){
+                    Point2D move = new Point2D.Double(xPos.get(i),yPos.get(j));
+                    legalMoves.add(move);
+                }
+            }
+        }
+    }
+
+    public void moveUp(int num){
+>>>>>>> 320dcca588df83d0ef96d5db6033058b08fe5a93
         int x1 = x;
         int y1 = y + num;
         if(model.inBounds(x1,y1)){
@@ -125,7 +163,7 @@ public class Person {
         }
     }*/
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -134,14 +172,14 @@ public class Person {
     }
 
     public Image getImage() {
-        return image;
+        return image.getImage();
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImage(Image img) {
+    	image.setImage(img);
     }
 
-    public int getCol() {
+    public double getCol() {
         return x;
     }
 
@@ -149,7 +187,7 @@ public class Person {
         this.x = x;
     }
 
-    public int getRow() {
+    public double getRow() {
         return y;
     }
 
@@ -203,5 +241,11 @@ public class Person {
 
     public void setRange(int range) {
         this.range = range;
+    }
+    
+    public void die(){
+        Tile t = model.getMapVal(x,y);
+        t.setPlayer(null);
+        model.setMapVal(t,x,y);
     }
 }

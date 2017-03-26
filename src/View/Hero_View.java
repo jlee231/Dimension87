@@ -37,6 +37,10 @@ public class Hero_View extends Rectangle{
 	public void setImageNow(Image img) {
 		image.setImage(img);
 	}
+	
+	public Image getImageNow(){
+		return image.getImage();
+	}
 
 	public void setColor(Color c) {
 		rect.setFill(c);
