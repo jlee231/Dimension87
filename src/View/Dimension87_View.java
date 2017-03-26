@@ -22,15 +22,62 @@ import javafx.scene.paint.Color;
 public class Dimension87_View extends Group implements Dimension87_ViewInterface<Image>{
 
 	private ImageView[][] images;
-	
-	private Image titleScreenImage = new Image("file:DImages/New%20Piskel%20clone.png");
-	private Image characterSelectImage = new Image("file:DImages/New%20Piskel.png");
-	private Image swordKnight = new Image("file:DImages/Sword%20Knight.png");
-	private Image archer = new Image("file:DImages/Archer.png");
-	
-	private Image dirtFloor = new Image("file:DImages/DirtFloor.png");
-	
-	private int numCharacters = 2;
+
+	private Hero_View[] leftTeam = new Hero_View[4];
+	private Hero_View[] rightTeam = new Hero_View[4];
+
+	private Image titleScreenImage = new Image("file:DImages/screenTitle.png");
+	private Image characterSelectImage = new Image("file:DImages/screenSelect.png");
+
+	private Image knightLeft = new Image("file:DImages/playerKnightLeft.png");
+	private Image archerLeft = new Image("file:DImages/playerArcherLeft.png");
+	private Image mageLeft = new Image("file:DImages/playerMageLeft.png");
+	private Image nurseLeft = new Image("file:DImages/playerNurseLeft.png");
+
+	private Image knightRight = new Image("file:DImages/playerKnightRight.png");
+	private Image archerRight = new Image("file:DImages/playerArcherRight.png");
+	private Image mageRight = new Image("file:DImages/playerMageRight.png");
+	private Image nurseRight = new Image("file:DImages/playerNurseRight.png");
+
+	private Image knightGrassLeft = new Image("file:DImages/playerKnightGrassLeft.png");
+	private Image archerGrassLeft = new Image("file:DImages/playerArcherGrassLeft.png");
+	private Image mageGrassLeft = new Image("file:DImages/playerMageGrassLeft.png");
+	private Image nurseGrassLeft = new Image("file:DImages/playerNurseGrassLeft.png");
+
+	private Image knightGrassRight = new Image("file:DImages/playerKnightGrassRight.png");
+	private Image archerGrassRight = new Image("file:DImages/playerArcherGrassRight.png");
+	private Image mageGrassRight = new Image("file:DImages/playerMageGrassRight.png");
+	private Image nurseGrassRight = new Image("file:DImages/playerNurseGrassRight.png");
+
+	private Image knightDirtLeft = new Image("file:DImages/playerKnightDirtLeft.png");
+	private Image archerDirtLeft = new Image("file:DImages/playerArcherDirtLeft.png");
+	private Image mageDirtLeft = new Image("file:DImages/playerMageDirtLeft.png");
+	private Image nurseDirtLeft = new Image("file:DImages/playerNurseDirtLeft.png");
+
+	private Image knightDirtRight = new Image("file:DImages/playerKnightDirtRight.png");
+	private Image archerDirtRight = new Image("file:DImages/playerArcherDirtRight.png");
+	private Image mageDirtRight = new Image("file:DImages/playerMageDirtRight.png");
+	private Image nurseDirtRight = new Image("file:DImages/playerNurseDirtRight.png");
+
+	private Image floorDirt = new Image("file:DImages/floorDirt.png");
+	private Image floorGrass = new Image("file:DImages/floorGrass.png");
+
+	private Image wallDirtBottomLeft = new Image("file:DImages/WallDirtBottomLeft.png");
+	private Image wallDirtBottomRight = new Image("file:DImages/WallDirtBottomRight.png");
+	private Image wallDirtTopLeft = new Image("file:DImages/WallDirtTopLeft.png");
+	private Image wallDirtTopRight = new Image("file:DImages/WallDirtTopRight.png");
+	private Image wallDirtHorizontal = new Image("file:DImages/WallDirtHorizontal.png");
+	private Image wallDirtVertical = new Image("file:DImages/WallDirtVertical.png");
+
+	private Image wallGrassBottomLeft = new Image("file:DImages/WallGrassBottomLeft.png");
+	private Image wallGrassBottomRight = new Image("file:DImages/WallGrassBottomRight.png");
+	private Image wallGrassTopLeft = new Image("file:DImages/WallGrassTopLeft.png");
+	private Image wallGrassTopRight = new Image("file:DImages/WallGrassTopRight.png");
+	private Image wallGrassHorizontal = new Image("file:DImages/WallGrassHorizontal.png");
+	private Image wallGrassVertical = new Image("file:DImages/WallGrassVertical.png");
+
+
+	private int numCharacters = 4;
 	
 	private Model model;
 	private int pixelSize;
@@ -41,7 +88,7 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 	public Dimension87_View(){
 		this.model = null;
 		this.images = null;
-		pixelSize = 128;
+		pixelSize = 64;
 	}
 	
 	@Override
@@ -93,10 +140,10 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 		setBackground(characterSelectImage, width, height);
 		
 		double xPosition = 0;
-		double yIncrement = pixelSize/2;
-		createCharacters(xPosition, yIncrement);
-		xPosition = width-pixelSize/2;
-		createCharacters(xPosition, yIncrement);
+		double yIncrement = pixelSize;
+		createLeftCharacters(xPosition, yIncrement);
+		xPosition = width-pixelSize;
+		createRightCharacters(xPosition, yIncrement);
 		
 		Label howToPlay = new Label("How to Play");
 		howToPlay.setFont(new Font(25));
@@ -193,26 +240,145 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 
 	public void createBattleGrounds(double width, double height, Model _model){
 		this.getChildren().remove(0, this.getChildren().size());
-		this.model = _model;
-		images = new ImageView[model.getNumRows()][model.getNumCols()];
-		for(int i = 0; i < model.getNumRows(); i++){
-			for(int j = 0; j < model.getNumCols(); j++){
-				images[i][j].setImage(dirtFloor);
-				this.getChildren().add(images[i][j]);
+		model = _model;
+		
+		rows = model.getNumRows();
+		cols = model.getNumCols();
+		
+		int y = 0;
+		int x = 0;
+		images = new ImageView[rows][cols];
+		for(int i = pixelSize / 2; i < width; i+=pixelSize){
+			x=0;
+			for(int j = pixelSize / 2; j < height; j+=pixelSize){
+				ImageView image = new ImageView(floorDirt);
+				image.setImage(model.getTileData(x, y).getImage());
+				image.setX(i);
+				image.setY(j);
+				images[y][x] = image;
+				this.getChildren().add(image);
+				x++;
 			}
+			y++;
 		}
-		this.setBackground(characterSelectImage, width, height);
 	}
 
-	private void createCharacters(double xPosition, double yIncrement) {
+	private void createLeftCharacters(double xPosition, double yIncrement) {
 		for(int i = 0; i < numCharacters; i++){
 			ImageView sprite = new ImageView();
 			switch(i){
-				case 0: sprite.setImage(swordKnight); break;
-				case 1: sprite.setImage(archer); break;
+				case 0: sprite.setImage(knightLeft); break;
+				case 1: sprite.setImage(archerLeft); break;
+				case 2: sprite.setImage(mageLeft); break;
+				case 3: sprite.setImage(nurseLeft);	break;
 			}
 			Hero_View hero = new Hero_View();
-			hero.makeSquare(xPosition, pixelSize/2 + yIncrement*i, pixelSize / 2);
+			leftTeam[i] = hero;
+			hero.makeSquare(xPosition, pixelSize/2 + yIncrement*i, pixelSize);
+			hero.setImageNow(sprite.getImage());
+			hero.setColor(Color.WHITE);
+			
+			Rectangle rectangle = new Rectangle(hero.getXPos(), hero.getYPos(), hero.getSize(), hero.getSize());
+			rectangle.setFill(Color.WHITE);
+			rectangle.setStroke(Color.BLACK);
+			
+			rectangle.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					if(!hero.getSelected()){
+						rectangle.setFill(Color.BLUE);
+						hero.setSelected(true);
+						
+					}else{
+						rectangle.setFill(Color.WHITE);
+						hero.setSelected(false);
+					}
+				}
+				
+			});
+			
+			rectangle.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					if(!hero.getSelected()){
+						rectangle.setFill(Color.RED);
+					}
+				}
+				
+			});
+			
+			rectangle.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					if(!hero.getSelected()){
+						rectangle.setFill(Color.WHITE);
+					}
+				}
+				
+			});
+			
+
+			sprite.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					if(!hero.getSelected()){
+						rectangle.setFill(Color.BLUE);
+						hero.setSelected(true);
+					}else{
+						rectangle.setFill(Color.WHITE);
+						hero.setSelected(false);
+					}
+				}
+				
+			});
+			
+			sprite.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					if(!hero.getSelected()){
+						rectangle.setFill(Color.RED);
+					}
+				}
+				
+			});
+			
+			sprite.setOnMouseExited(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					if(!hero.getSelected()){
+						rectangle.setFill(Color.WHITE);
+					}
+				}
+				
+			});
+			
+			sprite.setX(xPosition);
+			sprite.setY(pixelSize / 2 + yIncrement * i);
+			this.getChildren().add(rectangle);
+			this.getChildren().add(sprite);
+
+		}
+		
+	}
+	
+	private void createRightCharacters(double xPosition, double yIncrement) {
+		for(int i = 0; i < numCharacters; i++){
+			ImageView sprite = new ImageView();
+			switch(i){
+				case 0: sprite.setImage(knightRight); break;
+				case 1: sprite.setImage(archerRight); break;
+				case 2: sprite.setImage(mageRight);	break;
+				case 3: sprite.setImage(nurseRight); break;
+			}
+			Hero_View hero = new Hero_View();
+			rightTeam[i] = hero;
+			hero.makeSquare(xPosition, pixelSize/2 + yIncrement*i, pixelSize);
 			hero.setImageNow(sprite.getImage());
 			hero.setColor(Color.WHITE);
 			
@@ -301,7 +467,14 @@ public class Dimension87_View extends Group implements Dimension87_ViewInterface
 			this.getChildren().add(sprite);
 
 		}
+		
 	}
-	
-	
+
+	public Hero_View[] getLeftTeam() {
+		return leftTeam;
+	}
+
+	public Hero_View[] getRightTeam() {
+		return rightTeam;
+	}
 }

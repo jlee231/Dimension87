@@ -23,14 +23,15 @@ public class Tile {
     }
 
 
+
     public Person getPlayer() {
         return player;
     }
 
     public void removePlayer(){
-        setPlayer(null);
+    	setPlayer(null);
     }
-
+    
     public void setPlayer(Person player) {
         this.player = player;
     }
@@ -56,6 +57,9 @@ public class Tile {
      * @return
      */
     public boolean isWalkable() {
+        if (this.getPlayer() != null){
+            return false;
+        }
         return walkable;
     }
 
@@ -71,5 +75,6 @@ public class Tile {
         return this.getImage().toString();
     }
 
+   
 
 }
