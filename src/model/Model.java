@@ -131,6 +131,8 @@ public class Model implements InterfaceModel {
 
 
 
+
+
     public Tile getMapVal(int x, int y){
         return map[x][y];
     }
@@ -166,6 +168,28 @@ public class Model implements InterfaceModel {
             }
         }
         return enemies;
+    }
+
+    public boolean turnOver(){
+        if (turnLeft){
+            for (int i = 0; i < team1.length; i++) {
+                if (!team1[i].isMoved()){
+                    return false;
+                }
+            }
+        }
+        if (!turnLeft){
+            for (int i = 0; i < team1.length; i++) {
+                if (!team2[i].isMoved()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void setNextTurn(boolean turnLeft) {
+        this.turnLeft = turnLeft;
     }
 
 
