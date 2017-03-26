@@ -123,5 +123,11 @@ public class Model implements InterfaceModel {
         return false;
     }
 
+    public int getNumCols(){
+        return map[0].length;
+    }
+    public int getNumRows(){
+        return map.length;
+    }
 
 }

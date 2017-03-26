@@ -2,7 +2,7 @@ package shared;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import model.Model;
-import java.awt.geom.Point2D
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
