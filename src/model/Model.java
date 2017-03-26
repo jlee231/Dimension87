@@ -1,25 +1,14 @@
 package model;
 
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import shared.Person;
-import shared.Player;
 import shared.Tile;
-import View.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import Controller.*;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-import shared.Person;
-import shared.Tile;
 
 /**
  * Created by phani on 3/25/2017.
@@ -92,9 +81,8 @@ public class Model implements InterfaceModel {
         map[y][x] = tile;
     }
 
-    @Override
-    public Tile[][] getTileData() {
-        return new Tile[0][];
+    public Tile getTileData(int row, int col) {
+        return map[row][col];
     }
 
     @Override
